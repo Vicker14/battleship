@@ -79,7 +79,7 @@ body {
     background-color: var(--bg-board);
 }
 
-.grid {
+[class*='grid'] {
     display: grid;
     grid-template: repeat(10, var(--tile-size)) / repeat(10, var(--tile-size));
 
