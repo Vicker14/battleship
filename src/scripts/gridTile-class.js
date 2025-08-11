@@ -6,8 +6,10 @@ class GridTile {
     static hit = 'hit';
     static water = 'water';
 
-    constructor () {
+    constructor (x, y) {
         this.status = this.constructor.water;
+        this.coordX = x;
+        this.coordY = y;
     }
 
     isMiss () {

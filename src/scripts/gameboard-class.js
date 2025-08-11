@@ -9,7 +9,7 @@ class Gameboard {
         for (let i = 0; i < size; i++) {
             let array = [];
             for (let j = 0; j < size; j++) {
-                array.push(new GridTile);
+                array.push(new GridTile(i,j));
             }
             initialGrid.push(array);
         }
