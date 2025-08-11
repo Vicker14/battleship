@@ -3,18 +3,16 @@ import Ship from './scripts/ship-class';
 import './styles.css';
 
 const htmlP1Grid = document.querySelector('.P1grid');
+const htmlCPUGrid = document.querySelector('.CPUgrid');
 
-const htmlP1Manipulator = new GridManipuation(htmlP1Grid);
+const htmlP1Manipulator = new GridManipuation(htmlP1Grid, false);
+const htmlCPUManipulator = new GridManipuation(htmlCPUGrid, true);
+
 const gameboardP1 = htmlP1Manipulator.gameboard;
+const gameboardCPU = htmlCPUManipulator.gameboard;
 
-gameboardP1.receiveAttack(0,1);
-gameboardP1.placeShip(2,2,new Ship(4,0), 'v');
-try {
-    gameboardP1.receiveAttack(2,2);
-    gameboardP1.receiveAttack(3,2);
-    gameboardP1.receiveAttack(4,2);
-} catch {
-
-}
+gameboardP1.placeShip(1,1,new Ship(4,0),'v');
+gameboardCPU.placeShip(1,1,new Ship(4,0),'v');
 
 htmlP1Manipulator.buildHTML();
+htmlCPUManipulator.buildHTML();
