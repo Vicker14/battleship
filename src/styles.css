@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Mozilla+Text:wght@200..700&family=Teko:wght@300..700&display=swap');
+
+* {
+    font-family: 'Mozilla Text';
+    font-weight: 400;
+
+    --tile-size: 3rem;
+    --board-size: calc(10 * var(--tile-size) + 11 * var(--border-size));
+
+    --bg-board: hsl(208, 100%, 97%);
+    --board-tile-border: hsl(203, 92%, 75%);
+    --border-size: 2px;
+}
+
+body {
+    margin: 0;
+    text-align: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+#title {
+    padding-top: 3rem;
+    font-size: 6rem;
+    font-family: 'Teko';
+    font-weight: 500;
+}
+
+#play-zone {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.player-names {
+    display: flex;
+    justify-content: center;
+
+    gap: var(--tile-size);
+
+    margin: calc(var(--tile-size)/3);
+}
+
+.player {
+    width: var(--board-size);
+    font-weight: 600;
+    z-index: 0;
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+}
+
+.player::after {
+    content: "";
+
+    position: absolute;
+
+    z-index: -1;
+    left: center;
+    top: 0.5rem;
+    
+    width: 25%;
+    height: 0.7rem;
+
+    background-color: var(--board-tile-border);
+}
+
+.game-boards {
+    display: flex;
+    justify-content: center;
+    gap: var(--tile-size);
+}
+
+.board {
+    height: var(--board-size);
+    aspect-ratio: 1 / 1;
+
+    background-color: var(--bg-board);
+}
+
+.grid {
+    display: grid;
+    grid-template: repeat(10, var(--tile-size)) / repeat(10, var(--tile-size));
+
+    gap: var(--border-size);
+}
+
+.tile {
+    height: var(--tile-size);
+    aspect-ratio: 1 / 1;
+
+    border: solid var(--border-size) var(--board-tile-border);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: relative;
+}
+
+.ship {
+    height: 90%;
+    aspect-ratio: 1/1;
+    position: absolute;
+    
+    background-color: gray;
+}
+
+.hit {
+    height: 50%;
+    aspect-ratio: 1/1;
+
+    position: absolute;
+    top: center;
+    left: center;
+
+    background-color: black;
+    border-radius: 50%;
+}
+
+.miss {
+    height: 50%;
+    aspect-ratio: 1/1;
+
+    position: absolute;
+    top: center;
+    left: center;
+
+    border: solid black 0.15rem;
+    border-radius: 50%;
+}
