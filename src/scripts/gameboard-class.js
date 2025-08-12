@@ -18,14 +18,14 @@ class Gameboard {
 
     isValidPosition (x, y, ship, direction) {
 
-        if (direction === 'v' && x + ship.length < this.grid.length) {
+        if (direction === 'v' && ! x + ship.length < this.grid.length) {
             for (let i = 0; i < ship.length; i++) {
                 if (!this.grid[x+i][y].isWater()) {
                     return false
                 }
             }
         } else
-        if (direction === 'h' && y + ship.length < this.grid[x].length) {
+        if (direction === 'h' && ! y + ship.length < this.grid[x].length) {
             for (let i = 0; i < ship.length; i++) {
                 if (!this.grid[x][y+i].isWater()) {
                     return false
