@@ -1,78 +1,72 @@
-const GridTile = require("./gridTile-class");
+const Tile = require("./tile-class");
 
 class Gameboard {
-
     shipList = [];
 
-    constructor (size) {
+    constructor(size) {
         let initialGrid = [];
         for (let i = 0; i < size; i++) {
             let array = [];
             for (let j = 0; j < size; j++) {
-                array.push(new GridTile(i,j));
+                array.push(new Tile(i, j));
             }
             initialGrid.push(array);
         }
         this.grid = initialGrid;
     }
 
-    isValidPosition (x, y, ship, direction) {
-
-        if (direction === 'v' && ! x + ship.length < this.grid.length) {
+    isValidPosition(x, y, ship, direction) {
+        if (direction === "v" && !x + ship.length < this.grid.length) {
             for (let i = 0; i < ship.length; i++) {
-                if (!this.grid[x+i][y].isWater()) {
-                    return false
+                if (!this.grid[x + i][y].isWater()) {
+                    return false;
                 }
             }
-        } else
-        if (direction === 'h' && ! y + ship.length < this.grid[x].length) {
+        } else if (
+            direction === "h" &&
+            !y + ship.length < this.grid[x].length
+        ) {
             for (let i = 0; i < ship.length; i++) {
-                if (!this.grid[x][y+i].isWater()) {
-                    return false
+                if (!this.grid[x][y + i].isWater()) {
+                    return false;
                 }
             }
         }
         return true;
     }
-    placeShip (x, y, ship, direction) {
+
+    placeShip(x, y, ship, direction) {
         if (this.isValidPosition(x, y, ship, direction)) {
-
-            if (direction === 'v') {
-
+            if (direction === "v") {
                 for (let i = 0; i < ship.length; i++) {
-                    this.grid[x+i][y].setTile(ship);
+                    this.grid[x + i][y].setTile(ship);
                 }
-            }
-            else if (direction === 'h') {
-
+            } else if (direction === "h") {
                 for (let i = 0; i < ship.length; i++) {
-                    this.grid[x][y+i].setTile(ship);
+                    this.grid[x][y + i].setTile(ship);
                 }
-            } else throw new Error('Invalid direction');
-        }
-        else throw new Error('Invalid position');
+            } else throw new Error("Invalid direction");
+        } else throw new Error("Invalid position");
 
         this.shipList.push(ship);
     }
 
-    receiveAttack (x, y) {
+    receiveAttack(x, y) {
         const tile = this.grid[x][y];
 
         if (tile.isWater()) {
-            tile.setTile(GridTile.miss);
-        } else 
-        if (tile.isShip()) {
+            tile.setTile(Tile.miss);
+        } else if (tile.isShip()) {
             const boat = tile.status;
             boat.hit();
 
             if (boat.isSunk()) {
-                this.shipList = this.shipList.filter(s => s !== boat);
+                this.shipList = this.shipList.filter((s) => s !== boat);
             }
-            
-            tile.setTile(GridTile.hit);
 
+            tile.setTile(Tile.hit);
         } else {
-            throw new Error('Already hitted position');
+            throw new Error("Already hitted position");
         }
     }
 }
