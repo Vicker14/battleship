@@ -1,13 +1,13 @@
-import GameController from './scripts/gameController-class';
-import GridManipuation from './scripts/gridManipulation-class';
+import GameController from './scripts/game-controller-class';
 import './styles.css';
 
 const htmlP1Grid = document.querySelector('.P1grid');
-const htmlP1Manipulator = new GridManipuation(htmlP1Grid, false);
 const htmlCPUGrid = document.querySelector('.CPUgrid');
-const htmlCPUManipulator = new GridManipuation(htmlCPUGrid, true);
 
-GameController.startGame(htmlP1Manipulator,htmlCPUManipulator);
+GameController.shipList = GameController.generateShips(2,2,3,4,5);
+GameController.gameboardSize = 10;
+
+GameController.startGame(htmlP1Grid,htmlCPUGrid);
 
 // Button to start game
 // Button to randomise ships

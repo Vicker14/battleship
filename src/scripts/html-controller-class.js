@@ -1,49 +1,39 @@
-const Gameboard = require("./gameboard-class");
-const GameController = require("./game-controller-class");
-
 class HtmlController {
-    gameboard = new Gameboard(10);
-    grid = this.gameboard.grid;
-
-    constructor(htmlElement, rival) {
+    constructor(htmlElement, gameboard, rival) {
         this.htmlElement = htmlElement;
+
         this.rival = rival;
+
+        this.gameboard = gameboard;
+        this.grid = this.gameboard.grid;
     }
 
     buildHTML() {
         this.htmlElement.textContent = "";
+
+        let htmlTileList = [];
+
         for (let i = 0; i < this.grid.length; i++) {
+
+            let xHtmlTileList = [];
+
             for (let j = 0; j < this.grid[i].length; j++) {
-                const gridCell = this.grid[i][j];
 
-                const htmlCell = document.createElement("div");
-                htmlCell.classList.add("tile");
+                const gameboardTile = this.grid[i][j];
 
-                htmlCell.addEventListener("click", () => {
-                    if (this.rival) {
-                        try {
-                            this.gameboard.receiveAttack(
-                                gridCell.coordX,
-                                gridCell.coordY,
-                            );
-                            this.setStatus(htmlCell, gridCell);
-                            if (GameController.checkWinner())
-                                this.declareWinner("P1");
-                            GameController.cpuAttack();
-                            if (GameController.checkWinner())
-                                this.declareWinner("CPU");
-                        } catch {}
-                    }
-                });
+                const htmlTile = document.createElement("div");
+                htmlTile.classList.add("tile");
 
-                this.setStatus(htmlCell, gridCell);
-
-                this.htmlElement.appendChild(htmlCell);
+                this.constructor.updateHtmlTile(htmlTile, gameboardTile);
+                this.htmlElement.appendChild(htmlTile);
+                xHtmlTileList.push(htmlTile);
             }
+            htmlTileList.push(xHtmlTileList);
         }
+        return htmlTileList;
     }
 
-    setStatus(htmlTile, gameboardTile) {
+    static updateHtmlTile(htmlTile, gameboardTile) {
         if (!gameboardTile.isWater()) {
             const newCellStatus = document.createElement("div");
 
@@ -58,15 +48,15 @@ class HtmlController {
         }
     }
 
-    declareWinner(winner) {
-        const htmlBody = document.querySelector("body");
+    // declareWinner(winner) {
+    //     const htmlBody = document.querySelector("body");
 
-        const winnerMessage = document.createElement("div");
-        winnerMessage.classList.add("winner");
-        winnerMessage.textContent = `The winner is ${winner}`;
+    //     const winnerMessage = document.createElement("div");
+    //     winnerMessage.classList.add("winner");
+    //     winnerMessage.textContent = `The winner is ${winner}`;
 
-        htmlBody.appendChild(winnerMessage);
-    }
+    //     htmlBody.appendChild(winnerMessage);
+    // }
 }
 
 module.exports = HtmlController;

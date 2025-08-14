@@ -1,19 +1,28 @@
+const Gameboard = require("./gameboard-class");
+const HtmlController = require("./html-controller-class");
 const Ship = require("./ship-class");
 
 class GameController {
+    static shipList = GameController.generateShips(2, 2, 3, 4, 5);
+    static gameboardSize = 10;
     // function to init the game
-    static startGame(htmlManipulator1, htmlManipulator2) {
-        const shipsList = GameController.generateShips(1, 2, 3, 4, 5);
+    static startGame(htmlGameboard1, htmlGameboard2) {
 
-        this.htmlManipulatorP1 = htmlManipulator1;
-        this.htmlManipulatorCPU = htmlManipulator2;
-        this.gameboardP1 = htmlManipulator1.gameboard;
-        this.gameboardCPU = htmlManipulator2.gameboard;
-        GameController.randomShipPlacement(this.gameboardP1, shipsList);
-        GameController.randomShipPlacement(this.gameboardCPU, shipsList);
+        this.gameboardP1 = new Gameboard(this.gameboardSize);
+        this.gameboardCPU = new Gameboard(this.gameboardSize);
 
-        htmlManipulator1.buildHTML();
-        htmlManipulator2.buildHTML();
+        this.htmlControllerP1 = new HtmlController(htmlGameboard1, this.gameboardP1, false)
+        this.htmlControllerCPU = new HtmlController(htmlGameboard2, this.gameboardCPU, true)
+
+        this.randomShipPlacement(this.gameboardP1, this.shipList);
+        this.randomShipPlacement(this.gameboardCPU, this.shipList);
+
+        this.htmlTileListP1 = this.htmlControllerP1.buildHTML();
+        this.htmlTileListCPU = this.htmlControllerCPU.buildHTML();
+
+        this.attackOnClick(this.htmlTileListCPU, this.gameboardCPU, this.gameboardP1);
+        // add event listener to cpu html elements
+            // attack when click
     }
 
     static randomShipPlacement(gameboard, shipList) {
@@ -21,7 +30,7 @@ class GameController {
             while (true) {
                 let x = Math.floor(Math.random() * 10);
                 let y = Math.floor(Math.random() * 10);
-                let direction = Math.random() >= 0.5 ? "h" : "v";
+                let direction = Math.random() > 0.5 ? "h" : "v";
 
                 try {
                     gameboard.placeShip(x, y, ship, direction);
@@ -32,13 +41,13 @@ class GameController {
     }
 
     static generateShips(...lengthX) {
-        let shipsList = [];
+        let shipList = [];
 
         lengthX.forEach((value) => {
-            shipsList.push(new Ship(value, 0));
+            shipList.push(new Ship(value, 0));
         });
 
-        return shipsList;
+        return shipList;
     }
 
     static cpuAttack() {
@@ -48,8 +57,7 @@ class GameController {
 
             try {
                 this.gameboardP1.receiveAttack(x, y);
-                this.htmlManipulatorP1.buildHTML();
-                console.log("cpu atack");
+                HtmlController.updateHtmlTile(this.htmlTileListP1[x][y], this.gameboardP1.grid[x][y]);
                 break;
             } catch {}
         }
@@ -59,9 +67,28 @@ class GameController {
         if (
             this.gameboardP1.shipList.length === 0 ||
             this.gameboardCPU.shipList.length === 0
-        )
-            return true;
+        ) return true;
         else return false;
+    }
+
+    static attackOnClick(htmlTileList, ownGameboard, rivalGameboard) {
+        for (let i = 0; i < htmlTileList.length; i++) {
+            for (let j = 0; j < htmlTileList[i].length; j++) {
+                
+                const tileHtml = htmlTileList[i][j];
+                const tileGameboard = ownGameboard.grid[i][j];
+
+                tileHtml.addEventListener("click", () => {
+                    try {
+                        console.log('1')
+                        ownGameboard.receiveAttack(i,j);
+                        HtmlController.updateHtmlTile(tileHtml, tileGameboard);
+                        this.cpuAttack();
+                    }
+                    catch {}
+                })
+            }
+        }
     }
 }
 
