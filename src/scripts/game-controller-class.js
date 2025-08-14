@@ -5,7 +5,7 @@ const Ship = require("./ship-class");
 class GameController {
     static shipList = GameController.generateShips(2, 2, 3, 4, 5);
     static gameboardSize = 10;
-    // function to init the game
+    
     static startGame(htmlGameboard1, htmlGameboard2) {
 
         this.gameboardP1 = new Gameboard(this.gameboardSize);
@@ -82,7 +82,12 @@ class GameController {
                     try {
                         ownGameboard.receiveAttack(i,j);
                         HtmlController.updateHtmlTile(tileHtml, tileGameboard, this.htmlControllerP1.rival);
+                        if (this.checkWinner()) {
+                            HtmlController.declareWinner('Player 1')
+                            throw new Error('Game end')
+                        };
                         this.cpuAttack();
+                        if (this.checkWinner()) HtmlController.declareWinner('CPU');                        
                     }
                     catch {}
                 })

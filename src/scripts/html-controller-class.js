@@ -50,15 +50,13 @@ class HtmlController {
         }
     }
 
-    // declareWinner(winner) {
-    //     const htmlBody = document.querySelector("body");
+    static declareWinner(winner) {
+        const htmlWinnerText = document.querySelector(".winner-text");
+        const htmlWinnerScreen = document.querySelector(".winner-screen")
 
-    //     const winnerMessage = document.createElement("div");
-    //     winnerMessage.classList.add("winner");
-    //     winnerMessage.textContent = `The winner is ${winner}`;
-
-    //     htmlBody.appendChild(winnerMessage);
-    // }
+        htmlWinnerText.textContent = `The winner is ${winner}`;
+        htmlWinnerScreen.classList.remove('hidden')
+    }
 }
 
 module.exports = HtmlController;
