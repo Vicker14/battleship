@@ -24,7 +24,7 @@ class HtmlController {
                 const htmlTile = document.createElement("div");
                 htmlTile.classList.add("tile");
 
-                this.constructor.updateHtmlTile(htmlTile, gameboardTile);
+                this.constructor.updateHtmlTile(htmlTile, gameboardTile, this.rival);
                 this.htmlElement.appendChild(htmlTile);
                 xHtmlTileList.push(htmlTile);
             }
@@ -33,15 +33,17 @@ class HtmlController {
         return htmlTileList;
     }
 
-    static updateHtmlTile(htmlTile, gameboardTile) {
+    static updateHtmlTile(htmlTile, gameboardTile, isRival) {
         if (!gameboardTile.isWater()) {
             const newCellStatus = document.createElement("div");
 
             let addClass;
 
             if (gameboardTile.isShip()) {
-                if (!this.rival) addClass = "ship";
-            } else addClass = gameboardTile.status;
+                if (!isRival) addClass = "ship";
+            } else { 
+                addClass = gameboardTile.status;
+            }
             newCellStatus.classList.add(addClass);
 
             htmlTile.appendChild(newCellStatus);

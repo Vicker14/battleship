@@ -71,7 +71,7 @@ class GameController {
         else return false;
     }
 
-    static attackOnClick(htmlTileList, ownGameboard, rivalGameboard) {
+    static attackOnClick(htmlTileList, ownGameboard) {
         for (let i = 0; i < htmlTileList.length; i++) {
             for (let j = 0; j < htmlTileList[i].length; j++) {
                 
@@ -80,9 +80,8 @@ class GameController {
 
                 tileHtml.addEventListener("click", () => {
                     try {
-                        console.log('1')
                         ownGameboard.receiveAttack(i,j);
-                        HtmlController.updateHtmlTile(tileHtml, tileGameboard);
+                        HtmlController.updateHtmlTile(tileHtml, tileGameboard, this.htmlControllerP1.rival);
                         this.cpuAttack();
                     }
                     catch {}
