@@ -1,18 +1,20 @@
-import GridManipuation from './scripts/gridManipulation-class';
-import Ship from './scripts/ship-class';
-import './styles.css';
+import GameController from "./scripts/game-controller-class";
+import HtmlController from "./scripts/html-controller-class";
+import "./styles.css";
 
-const htmlP1Grid = document.querySelector('.P1grid');
-const htmlCPUGrid = document.querySelector('.CPUgrid');
+const htmlP1Grid = document.querySelector(".P1grid");
+const htmlCPUGrid = document.querySelector(".CPUgrid");
 
-const htmlP1Manipulator = new GridManipuation(htmlP1Grid, false);
-const htmlCPUManipulator = new GridManipuation(htmlCPUGrid, true);
+GameController.shipList = GameController.generateShips(2, 2, 3, 4, 5);
+GameController.gameboardSize = 10;
 
-const gameboardP1 = htmlP1Manipulator.gameboard;
-const gameboardCPU = htmlCPUManipulator.gameboard;
+GameController.startGame(htmlP1Grid, htmlCPUGrid);
 
-gameboardP1.placeShip(1,1,new Ship(4,0),'v');
-gameboardCPU.placeShip(1,1,new Ship(4,0),'v');
+const htmlRestartGame = document.querySelector(".new-game-button");
+htmlRestartGame.addEventListener("click", () => {
+    GameController.startGame(htmlP1Grid, htmlCPUGrid);
+    HtmlController.declareWinner(null);
+});
 
-htmlP1Manipulator.buildHTML();
-htmlCPUManipulator.buildHTML();
+// Button to start game
+// Button to randomise ships

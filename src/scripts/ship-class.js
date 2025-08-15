@@ -1,18 +1,16 @@
 class Ship {
-
     constructor(length, hits) {
         this.length = length;
         this.hits = hits;
     }
 
-    hit () {
+    hit() {
         this.hits += 1;
     }
 
-    isSunk () {
+    isSunk() {
         return this.length === this.hits;
     }
 }
-
 
 module.exports = Ship;
