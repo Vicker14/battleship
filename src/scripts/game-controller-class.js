@@ -3,7 +3,9 @@ const HtmlController = require("./html-controller-class");
 const Ship = require("./ship-class");
 
 class GameController {
-    static shipList = GameController.generateShips(2, 2, 3, 4, 5);
+    static shipListP1 = GameController.generateShips(2, 2, 3, 4, 5);
+    static shipListCPU = GameController.generateShips(2, 2, 3, 4, 5);
+
     static gameboardSize = 10;
     
     static startGame(htmlGameboard1, htmlGameboard2) {
@@ -14,13 +16,13 @@ class GameController {
         this.htmlControllerP1 = new HtmlController(htmlGameboard1, this.gameboardP1, false)
         this.htmlControllerCPU = new HtmlController(htmlGameboard2, this.gameboardCPU, true)
 
-        this.randomShipPlacement(this.gameboardP1, this.shipList);
-        this.randomShipPlacement(this.gameboardCPU, this.shipList);
+        this.randomShipPlacement(this.gameboardP1, this.shipListP1);
+        this.randomShipPlacement(this.gameboardCPU, this.shipListCPU);
 
         this.htmlTileListP1 = this.htmlControllerP1.buildHTML();
         this.htmlTileListCPU = this.htmlControllerCPU.buildHTML();
 
-        this.attackOnClick(this.htmlTileListCPU, this.gameboardCPU, this.gameboardP1);
+        this.attackOnClick(this.htmlTileListCPU, this.gameboardCPU);
         // add event listener to cpu html elements
             // attack when click
     }
