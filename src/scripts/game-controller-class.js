@@ -3,12 +3,13 @@ const HtmlController = require("./html-controller-class");
 const Ship = require("./ship-class");
 
 class GameController {
-    static shipListP1 = GameController.generateShips(2, 2, 3, 4, 5);
-    static shipListCPU = GameController.generateShips(2, 2, 3, 4, 5);
 
     static gameboardSize = 10;
     
     static startGame(htmlGameboard1, htmlGameboard2) {
+
+        this.shipListP1 = GameController.generateShips(2, 2, 3, 4, 5);
+        this.shipListCPU = GameController.generateShips(2, 2, 3, 4, 5);
 
         this.gameboardP1 = new Gameboard(this.gameboardSize);
         this.gameboardCPU = new Gameboard(this.gameboardSize);

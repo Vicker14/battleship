@@ -55,7 +55,7 @@ class HtmlController {
         const htmlWinnerScreen = document.querySelector(".winner-screen")
 
         htmlWinnerText.textContent = `The winner is ${winner}`;
-        htmlWinnerScreen.classList.remove('hidden')
+        htmlWinnerScreen.classList.toggle('hidden')
     }
 }
 
