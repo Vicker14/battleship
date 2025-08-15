@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Mozilla+Text:wght@200..700&family=Teko:wght@300..700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Mozilla+Text:wght@200..700&family=Teko:wght@300..700&display=swap");
 
 * {
-    font-family: 'Mozilla Text';
+    font-family: "Mozilla Text";
     font-weight: 400;
 
     --tile-size: 3rem;
@@ -24,7 +24,7 @@ body {
 #title {
     padding-top: 3rem;
     font-size: 6rem;
-    font-family: 'Teko';
+    font-family: "Teko";
     font-weight: 500;
 }
 
@@ -40,7 +40,7 @@ body {
 
     gap: var(--tile-size);
 
-    margin: calc(var(--tile-size)/3);
+    margin: calc(var(--tile-size) / 3);
 }
 
 .player {
@@ -62,7 +62,7 @@ body {
     z-index: -1;
     left: center;
     top: 1rem;
-    
+
     width: 25%;
     height: 0.7rem;
 
@@ -84,7 +84,6 @@ button {
     background-color: var(--color-boder-tile);
     text-align: center;
     font-size: 1rem;
-    
 }
 button:hover {
     background-color: hsl(from var(--color-bg-board) h s calc(l - 30));
@@ -104,7 +103,7 @@ button:hover {
     background-color: var(--color-bg-board);
 }
 
-[class*='grid'] {
+[class*="grid"] {
     display: grid;
     grid-template: repeat(10, var(--tile-size)) / repeat(10, var(--tile-size));
 
@@ -128,7 +127,7 @@ button:hover {
     height: 90%;
     aspect-ratio: 1/1;
     position: absolute;
-    
+
     background-color: gray;
 }
 

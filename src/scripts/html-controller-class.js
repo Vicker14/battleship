@@ -14,17 +14,19 @@ class HtmlController {
         let htmlTileList = [];
 
         for (let i = 0; i < this.grid.length; i++) {
-
             let xHtmlTileList = [];
 
             for (let j = 0; j < this.grid[i].length; j++) {
-
                 const gameboardTile = this.grid[i][j];
 
                 const htmlTile = document.createElement("div");
                 htmlTile.classList.add("tile");
 
-                this.constructor.updateHtmlTile(htmlTile, gameboardTile, this.rival);
+                this.constructor.updateHtmlTile(
+                    htmlTile,
+                    gameboardTile,
+                    this.rival,
+                );
                 this.htmlElement.appendChild(htmlTile);
                 xHtmlTileList.push(htmlTile);
             }
@@ -41,7 +43,7 @@ class HtmlController {
 
             if (gameboardTile.isShip()) {
                 if (!isRival) addClass = "ship";
-            } else { 
+            } else {
                 addClass = gameboardTile.status;
             }
             newCellStatus.classList.add(addClass);
@@ -52,10 +54,10 @@ class HtmlController {
 
     static declareWinner(winner) {
         const htmlWinnerText = document.querySelector(".winner-text");
-        const htmlWinnerScreen = document.querySelector(".winner-screen")
+        const htmlWinnerScreen = document.querySelector(".winner-screen");
 
         htmlWinnerText.textContent = `The winner is ${winner}`;
-        htmlWinnerScreen.classList.toggle('hidden')
+        htmlWinnerScreen.classList.toggle("hidden");
     }
 }
 
