@@ -1,5 +1,5 @@
 const Gameboard = require('../scripts/gameboard-class');
-const GameController = require('../scripts/gameController-class');
+const GameController = require('../scripts/game-controller-class');
 const Ship = require('../scripts/ship-class');
 
 const shipsList = GameController.generateShips(1,2,3,4,5);

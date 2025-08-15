@@ -1,4 +1,4 @@
-const Tile = require("../scripts/gridTile-class");
+const Tile = require("../scripts/tile-class");
 const Ship = require("../scripts/ship-class");
 
 const gridTile = new Tile();

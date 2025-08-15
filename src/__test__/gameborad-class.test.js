@@ -1,5 +1,5 @@
 const Gameboard = require('../scripts/gameboard-class');
-const GridTile = require('../scripts/gridTile-class');
+const GridTile = require('../scripts/tile-class');
 const Ship = require('../scripts/ship-class');
 
 const boat = new Ship(2, 0);
@@ -99,16 +99,15 @@ test('Attack hit already hitted boat', () => {
     expect( () => {board.receiveAttack(0,2)}).toThrow();
 })
 
-test('Delete shank boats', () => {
+test('Delete sank boats', () => {
     const board = new Gameboard(5);
 
     board.placeShip(0, 2, new Ship(3,0), 'v');
-    board.placeShip(1, 2, new Ship(3,0), 'h');
-
-    expect(board.shipList.length).toEqual(2)
+    expect(() => {board.placeShip(1, 2, new Ship(3,0), 'h')}).toThrow()
 
     board.receiveAttack(0,2);
-    board.receiveAttack(1,2);
-
-    expect(board.shipList.length).toEqual(2)
+    expect(board.shipList.length).toEqual(1);
+    board.receiveAttack(1,2)
+    board.receiveAttack(2,2)
+    expect(board.shipList.length).toEqual(0);
 })
