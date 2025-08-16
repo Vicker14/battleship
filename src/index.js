@@ -11,10 +11,13 @@ GameController.gameboardSize = 10;
 GameController.startGame(htmlP1Grid, htmlCPUGrid);
 
 const htmlRestartGame = document.querySelector(".new-game-button");
+const htmlRandomizeShips = document.querySelector(".randomizer");
+
 htmlRestartGame.addEventListener("click", () => {
     GameController.startGame(htmlP1Grid, htmlCPUGrid);
     HtmlController.declareWinner(null);
 });
 
-// Button to start game
-// Button to randomise ships
+htmlRandomizeShips.addEventListener("click", () => {
+    GameController.startGame(htmlP1Grid, htmlCPUGrid);
+});

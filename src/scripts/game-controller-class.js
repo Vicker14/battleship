@@ -30,8 +30,6 @@ class GameController {
         this.htmlTileListCPU = this.htmlControllerCPU.buildHTML();
 
         this.attackOnClick(this.htmlTileListCPU, this.gameboardCPU);
-        // add event listener to cpu html elements
-        // attack when click
     }
 
     static randomShipPlacement(gameboard, shipList) {

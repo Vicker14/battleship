@@ -41,6 +41,7 @@ body {
     gap: var(--tile-size);
 
     margin: calc(var(--tile-size) / 3);
+    position: relative;
 }
 
 .player {
@@ -52,6 +53,11 @@ body {
 
     display: flex;
     justify-content: center;
+}
+
+.randomizer {
+    position: absolute;
+    bottom: 0;
 }
 
 .player::after {
